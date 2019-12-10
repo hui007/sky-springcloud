@@ -7,6 +7,9 @@
     <groupId>com.sky.springcloud</groupId>
     <artifactId>sky-springcloud</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>sky-eureka</module>
+    </modules>
     <packaging>pom</packaging>
 
     <name>sky-springcloud</name>
@@ -83,272 +86,252 @@
                 <scope>import</scope>
             </dependency>
             <!-- 七牛云SDK -->
-            <dependency>
-                <groupId>com.qiniu</groupId>
-                <artifactId>qiniu-java-sdk</artifactId>
-                <version>7.2.23</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.qiniu</groupId>-->
+                <!--<artifactId>qiniu-java-sdk</artifactId>-->
+                <!--<version>7.2.23</version>-->
+            <!--</dependency>-->
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <!--集成springmvc框架并实现自动配置 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency> -->
-
-        <!-- commons -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons.version}</version>
-        </dependency>
-
-        <!-- freemarker -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!--集成springmvc框架并实现自动配置 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-mail</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-test</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-aop</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; <dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-devtools</artifactId>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency> &ndash;&gt;-->
+
+        <!--&lt;!&ndash; commons &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>commons-io</groupId>-->
+            <!--<artifactId>commons-io</artifactId>-->
+            <!--<version>${commons.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>commons-lang</groupId>-->
+            <!--<artifactId>commons-lang</artifactId>-->
+            <!--<version>${commons.version}</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; freemarker &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-freemarker</artifactId>-->
+        <!--</dependency>-->
+
         <!-- mybatis-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.baomidou</groupId>-->
+            <!--<artifactId>mybatis-plus-boot-starter</artifactId>-->
+            <!--<version>${mybatis-plus.version}</version>-->
+        <!--</dependency>-->
 
-        <!-- druid -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; druid &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>druid-spring-boot-starter</artifactId>-->
+            <!--<version>${druid.version}</version>-->
+        <!--</dependency>-->
 
-        <!-- 动态数据源 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>2.5.4</version>
-        </dependency>
+        <!--&lt;!&ndash; 动态数据源 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.baomidou</groupId>-->
+            <!--<artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+            <!--<version>2.5.4</version>-->
+        <!--</dependency>-->
 
         <!-- json -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.60</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba</groupId>-->
+            <!--<artifactId>fastjson</artifactId>-->
+            <!--<version>1.2.60</version>-->
+        <!--</dependency>-->
 
-        <!--mysql-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!--  sqlserver-->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>sqljdbc4</artifactId>
-            <version>4.0</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- oracle驱动 -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- postgresql驱动 -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.6</version>
-            <scope>runtime</scope>
-        </dependency>
+        <!--&lt;!&ndash;mysql&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>mysql</groupId>-->
+            <!--<artifactId>mysql-connector-java</artifactId>-->
+            <!--<version>5.1.47</version>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
 
-        <!-- Quartz定时任务 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; Quartz定时任务 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-quartz</artifactId>-->
+        <!--</dependency>-->
 
-        <!--JWT-->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.7.0</version>
-        </dependency>
+        <!--&lt;!&ndash;JWT&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.auth0</groupId>-->
+            <!--<artifactId>java-jwt</artifactId>-->
+            <!--<version>3.7.0</version>-->
+        <!--</dependency>-->
 
-        <!--shiro-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-starter</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-        <!-- shiro-redis -->
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis</artifactId>
-            <version>3.1.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.shiro</groupId>
-                    <artifactId>shiro-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        <!--&lt;!&ndash;shiro&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shiro</groupId>-->
+            <!--<artifactId>shiro-spring-boot-starter</artifactId>-->
+            <!--<version>1.4.0</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; shiro-redis &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.crazycake</groupId>-->
+            <!--<artifactId>shiro-redis</artifactId>-->
+            <!--<version>3.1.0</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>org.apache.shiro</groupId>-->
+                    <!--<artifactId>shiro-core</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
 
         <!-- Swagger API文档 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.9.3</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-bean-validators</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <!-- # 增加两个配置解决 NumberFormatException -->
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.5.22</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>1.5.22</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.springfox</groupId>-->
+            <!--<artifactId>springfox-swagger2</artifactId>-->
+            <!--<version>2.9.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.springfox</groupId>-->
+            <!--<artifactId>springfox-swagger-ui</artifactId>-->
+            <!--<version>2.9.2</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.github.xiaoymin</groupId>-->
+            <!--<artifactId>swagger-bootstrap-ui</artifactId>-->
+            <!--<version>1.9.3</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.springfox</groupId>-->
+            <!--<artifactId>springfox-bean-validators</artifactId>-->
+            <!--<version>2.9.2</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; # 增加两个配置解决 NumberFormatException &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>io.swagger</groupId>-->
+            <!--<artifactId>swagger-annotations</artifactId>-->
+            <!--<version>1.5.22</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.swagger</groupId>-->
+            <!--<artifactId>swagger-models</artifactId>-->
+            <!--<version>1.5.22</version>-->
+        <!--</dependency>-->
 
 
-        <!-- Redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-pool2</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; Redis &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.commons</groupId>-->
+            <!--<artifactId>commons-pool2</artifactId>-->
+        <!--</dependency>-->
 
-        <!-- 阿里云短信 -->
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-            <version>${aliyun-java-sdk-dysmsapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun</groupId>
-            <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>${aliyun-java-sdk-core.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; 阿里云短信 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.aliyun</groupId>-->
+            <!--<artifactId>aliyun-java-sdk-dysmsapi</artifactId>-->
+            <!--<version>${aliyun-java-sdk-dysmsapi.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.aliyun</groupId>-->
+            <!--<artifactId>aliyun-java-sdk-core</artifactId>-->
+            <!--<version>${aliyun-java-sdk-core.version}</version>-->
+        <!--</dependency>-->
 
-        <!--HttpClient-->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.3</version>
-        </dependency>
+        <!--&lt;!&ndash;HttpClient&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.httpcomponents</groupId>-->
+            <!--<artifactId>httpclient</artifactId>-->
+            <!--<version>4.5.3</version>-->
+        <!--</dependency>-->
 
-        <!-- websocket -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; websocket &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-websocket</artifactId>-->
+        <!--</dependency>-->
 
-        <!-- aliyun oss -->
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-            <version>${aliyun.oss.version}</version>
-        </dependency>
+        <!--&lt;!&ndash; aliyun oss &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.aliyun.oss</groupId>-->
+            <!--<artifactId>aliyun-sdk-oss</artifactId>-->
+            <!--<version>${aliyun.oss.version}</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
     <build>
         <plugins>
-            <!--<plugin>
+            <!--springboot编译器-->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-             指定JDK编译版本 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <!-- 打包跳过测试 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-            <!-- 避免font文件的二进制文件格式压缩破坏 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
+             <!--指定JDK编译版本-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<source>1.8</source>-->
+                    <!--<target>1.8</target>-->
+                    <!--<encoding>UTF-8</encoding>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+            <!--&lt;!&ndash; 打包跳过测试 &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<skipTests>true</skipTests>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+            <!--&lt;!&ndash; 避免font文件的二进制文件格式压缩破坏 &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-resources-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<nonFilteredFileExtensions>-->
+                        <!--<nonFilteredFileExtension>woff</nonFilteredFileExtension>-->
+                        <!--<nonFilteredFileExtension>woff2</nonFilteredFileExtension>-->
+                        <!--<nonFilteredFileExtension>eot</nonFilteredFileExtension>-->
+                        <!--<nonFilteredFileExtension>ttf</nonFilteredFileExtension>-->
+                        <!--<nonFilteredFileExtension>svg</nonFilteredFileExtension>-->
+                    <!--</nonFilteredFileExtensions>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
         <resources>
             <resource>
