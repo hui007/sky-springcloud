@@ -36,14 +36,14 @@
 
     <!--下载构件时，用到的仓库-->
     <repositories>
-        <repository>
+        <!--<repository>
             <id>aliyun</id>
             <name>aliyun Repository</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
+        </repository>-->
         <!--<repository>
           <id>jeecg</id>
           <name>jeecg Repository</name>
@@ -69,7 +69,27 @@
         <aliyun-java-sdk-core.version>3.2.3</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-dysmsapi.version>1.0.0</aliyun-java-sdk-dysmsapi.version>
         <aliyun.oss.version>3.6.0</aliyun.oss.version>
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
     </properties>
+
+    <!--先申明，统一version版本，供子模块使用-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 七牛云SDK -->
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>7.2.23</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!--集成springmvc框架并实现自动配置 -->
@@ -290,18 +310,6 @@
         </dependency>
 
     </dependencies>
-
-    <!--先申明，统一version版本，供子模块使用-->
-    <dependencyManagement>
-        <dependencies>
-            <!-- 七牛云SDK -->
-            <dependency>
-                <groupId>com.qiniu</groupId>
-                <artifactId>qiniu-java-sdk</artifactId>
-                <version>7.2.23</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
