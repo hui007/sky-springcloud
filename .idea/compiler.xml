@@ -6,13 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="sky-client" />
         <module name="sky-eureka" />
+        <module name="sky-server" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="sky-client" options="-parameters" />
       <module name="sky-eureka" options="-parameters" />
+      <module name="sky-server" options="-parameters" />
     </option>
   </component>
 </project>
