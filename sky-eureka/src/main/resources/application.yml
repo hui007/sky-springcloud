@@ -1,0 +1,16 @@
+server:
+  port: 7777
+spring:
+  application:
+    name: sky-eureka-service
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 15 #服务失效时间，Eureka多长时间没收到服务的renew操作，就剔除该服务，默认90秒
+  server:
+    eviction-interval-timer-in-ms: 20000 #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+    enable-self-preservation: true # 自我保护模式（缺省为打开）
+  client:
+    register-with-eureka: false # 是否注册到eureka（eureka本身是不需要再注册到自己的）
+    fetch-registry: false # 是否从eureka获取注册信息
+    service-url:
+      defaultZone: http://localhost:${server.port}/eureka/ # eureka服务器的地址（注意：地址最后面的 /eureka/ 这个是固定值）
