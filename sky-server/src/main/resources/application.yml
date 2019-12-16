@@ -1,11 +1,12 @@
 server:
-  port: 8081
+#  port: ${random.int[8083,8089]} # 随机范围端口（在eureka里有bug，注册到eureka里的端口是错的）。跳过8081，The Tomcat connector configured to listen on port 8081 failed to start
+  port: 8081 # 如果要起多个服务端，可以启动时，命令行指定不同的端口
 spring:
   application:
-    name: sky-server-service
+    name: sky-server
 eureka:
   instance:
-    appname: sky-server
+    appname: sky-server-eureka
     lease-renewal-interval-in-seconds: 5 # 心跳时间，即服务续约间隔时间（缺省为30s）
     lease-expiration-duration-in-seconds: 10 # 发呆时间，即服务续约到期时间（缺省为90s）
     instance-id: ${spring.cloud.client.ip-address}:${server.port}:${spring.application.name}:@project.version@ #可以不配置，默认为ip:port。@引用maven里的属性
