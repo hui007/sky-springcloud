@@ -8,12 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * 使用ribbon方式请求远程服务
+ */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/ribbon")
 public class UserRibbonController {
     @Autowired
     private RestTemplate restTemplate;
-    @Value("${service-in-eureka.sky-server}")
+    @Value("${service-in-eureka.sky-server-ribbon}")
     private String userServiceUrl;
 
     @GetMapping("/{id}")

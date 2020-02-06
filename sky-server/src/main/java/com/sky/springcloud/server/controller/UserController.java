@@ -47,7 +47,9 @@ public class UserController {
     @GetMapping("/getByUsername")
     public CommonResult<User> getByUsername(@RequestParam String username) {
         User user = userService.getByUsername(username);
-        return new CommonResult<>(user);
+        CommonResult<User> commonResult = new CommonResult<>(user);
+        commonResult.setMessage(commonResult.getMessage() + "。port：" + environmentUtil.getLocalServerPort());
+        return commonResult;
     }
 
     @PostMapping("/update")
