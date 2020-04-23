@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user/feign")
 public class UserFeignController {
-    @Autowired
+    @Autowired(required = false)
+//    @Autowired
     private UserFeignService userFeignService;
 
     @GetMapping("/getByUsername")

@@ -5,20 +5,20 @@ spring:
     name: sky-client
 eureka:
   instance:
-    appname: sky-client-eureka
+    appname: sky-client-eureka # 默认是spring.application.name字段。在eureka配置中心看到的"Instances currently registered with Eureka"里的Application字段
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}:${spring.application.name}:@project.version@ #可以不配置，默认为ip:port。@引用maven里的属性。在eureka配置中心看到的"Instances currently registered with Eureka"里的status字段
     lease-renewal-interval-in-seconds: 5 # 心跳时间，即服务续约间隔时间（缺省为30s）
     lease-expiration-duration-in-seconds: 10 # 发呆时间，即服务续约到期时间（缺省为90s）
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}:${spring.application.name}:@project.version@ #可以不配置，默认为ip:port。@引用maven里的属性
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:7777/eureka/ # 注册到eureka中心，获取到配置服务
+      defaultZone: http://localhost:8000/eureka/ # 注册到eureka中心，获取到配置服务
     healthcheck:
       enabled: true # 开启健康检查（依赖spring-boot-starter-actuator）
-service-in-eureka:
-  sky-server-ribbon: http://sky-server # spring.application.name
+service-in-eureka: #自定义的key，为了引用注册到eureka里的远程服务
+  sky-server-ribbon: http://sky-server # 对应远程服务的spring.application.name属性值
 # feign和ribbon结合，指定策略。feign默认的是轮询的策略，这里的配置可以自定义
-sky-server:
+sky-server: #注册到eureka里的远程服务名。对应远程服务的spring.application.name属性值
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

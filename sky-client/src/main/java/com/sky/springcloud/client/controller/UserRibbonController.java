@@ -2,8 +2,11 @@ package com.sky.springcloud.client.controller;
 
 import com.sky.springcloud.client.domain.CommonResult;
 import com.sky.springcloud.client.domain.User;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -13,11 +16,12 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 @RequestMapping("/user/ribbon")
-public class UserRibbonController {
+public class UserRibbonController  implements ApplicationContextAware {
     @Autowired
     private RestTemplate restTemplate;
     @Value("${service-in-eureka.sky-server-ribbon}")
     private String userServiceUrl;
+    private ApplicationContext applicationContext;
 
     @GetMapping("/{id}")
     public CommonResult getUser(@PathVariable Long id) {
@@ -52,5 +56,18 @@ public class UserRibbonController {
     @PostMapping("/delete/{id}")
     public CommonResult delete(@PathVariable Long id) {
         return restTemplate.postForObject(userServiceUrl + "/user/delete/{1}", null, CommonResult.class, id);
+    }
+
+    @GetMapping("/getManualRegisterBean")
+    public void getManualRegisterBean() {
+        Object aInner = applicationContext.getBean("registerBeanClient_registerBeanAImpl_inner");
+        Object aOuter = applicationContext.getBean("registerBeanClient_registerBeanAImpl_outer");
+        Object bInner = applicationContext.getBean("registerBeanClient_registerBeanBImpl_inner");
+        Object bOuter = applicationContext.getBean("registerBeanClient_registerBeanBImpl_outer");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }
