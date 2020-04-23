@@ -1,16 +1,36 @@
-server:
-  port: 7777
 spring:
   application:
     name: sky-eureka
 eureka:
   instance:
-    lease-expiration-duration-in-seconds: 15 #服务失效时间，Eureka多长时间没收到服务的renew操作，就剔除该服务，默认90秒
+    hostname: ${hostname:${spring.application.name}} # 会显示到控制台的"DS Replicas"。如果是集群模式且hostname相同，"available-replicas"会为空。
+    lease-expiration-duration-in-seconds: 15 # 服务失效时间，Eureka多长时间没收到服务的renew操作，就剔除该服务，默认90秒
   server:
-    eviction-interval-timer-in-ms: 20000 #eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
+    eviction-interval-timer-in-ms: 20000 # eureka server清理无效节点的时间间隔，默认60000毫秒，即60秒
     enable-self-preservation: true # 自我保护模式（缺省为打开）
   client:
-    register-with-eureka: false # 是否注册到eureka（eureka本身是不需要再注册到自己的）
-    fetch-registry: false # 是否从eureka获取注册信息
+    register-with-eureka: true # 是否注册到eureka
+    fetch-registry: true # 是否从eureka获取注册信息
     service-url:
-      defaultZone: http://localhost:${server.port}/eureka/ # eureka服务器的地址（注意：地址最后面的 /eureka/ 这个是固定值）
+      defaultZone: ${defaultZone:http://localhost:${server.port}/eureka/} # eureka服务器的地址（注意：地址最后面的 /eureka/ 这个是固定值）
+
+
+####### 以下是对不同profile的定义。可以使用命令行参数（program arguments）--spring.profiles.active=xxx激活，或者jvm参数-Dspring.profiles.active=xxx
+
+# 以下是单机模式配置。
+---
+spring:
+  profiles: standalone # 单机模式 --spring.profiles.active=standalone --server.port=8000
+eureka:
+  client:
+    register-with-eureka: false # 单机模式下，eureka本身是不需要再注册到自己的
+    fetch-registry: false # 单机模式下，eureka本身不需要获取注册信息
+
+# 以下是集群模式配置。需要将peer1、peer2在本机的host文件里映射到127.0.0.1："127.0.0.1	peer1 peer2"。
+---
+spring:
+  profiles: cluster-1 # 集群模式-机器1 --spring.profiles.active=cluster-1 --hostname=peer1  --server.port=9001 --defaultZone=http://peer2:9002/eureka/
+---
+spring:
+  profiles: cluster-2 # 集群模式-机器2 -Dspring.profiles.active=cluster-2 -Dhostname=peer2  -Dserver.port=9002 -DdefaultZone=http://peer1:9001/eureka/
+
