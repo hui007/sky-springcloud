@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * 使用feign包装远程服务
  */
-@FeignClient(value = "${service-in-eureka.sky-server-ribbon}")
+@FeignClient(value = "${service-in-eureka.sky-server}")
 //@FeignClient(value = "${service-in-eureka.sky-server-feign}")
 //@FeignClient(value = "sky-server")
 public interface UserFeignService {

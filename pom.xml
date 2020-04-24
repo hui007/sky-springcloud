@@ -117,12 +117,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <optional>true</optional>
         </dependency>
-        <!--热部署-->
+        <!--热部署。如果是jar包运行，springboot会自动忽略掉这个特性-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
+            <optional>false</optional><!--是否依赖传递。建议为true（不要依赖传递）-->
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
         </dependency>
 
         <!--集成springmvc框架并实现自动配置 -->

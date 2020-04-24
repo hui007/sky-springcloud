@@ -14,6 +14,6 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:7777/eureka/ # 注册到eureka中心，获取到配置服务
+      defaultZone: http://localhost:8000/eureka/ # 注册到eureka中心，获取到配置服务
     healthcheck:
       enabled: true # 开启健康检查（依赖spring-boot-starter-actuator）

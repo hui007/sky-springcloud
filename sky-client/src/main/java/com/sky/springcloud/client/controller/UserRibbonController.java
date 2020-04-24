@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 public class UserRibbonController  implements ApplicationContextAware {
     @Autowired
     private RestTemplate restTemplate;
-    @Value("${service-in-eureka.sky-server-ribbon}")
+    @Value("${service-in-eureka.sky-server}")
     private String userServiceUrl;
     private ApplicationContext applicationContext;
 
