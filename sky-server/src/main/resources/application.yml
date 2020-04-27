@@ -7,9 +7,9 @@ spring:
 eureka:
   instance:
     appname: sky-server-eureka
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}:${spring.application.name}:@project.version@ #可以不配置，默认为ip:port。@引用maven里的属性
     lease-renewal-interval-in-seconds: 5 # 心跳时间，即服务续约间隔时间（缺省为30s）
     lease-expiration-duration-in-seconds: 10 # 发呆时间，即服务续约到期时间（缺省为90s）
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}:${spring.application.name}:@project.version@ #可以不配置，默认为ip:port。@引用maven里的属性
   client:
     register-with-eureka: true
     fetch-registry: true

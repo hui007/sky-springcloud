@@ -1,0 +1,58 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: sky-zuul
+eureka:
+  instance:
+    appname: sky-server-zuul
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}:${spring.application.name}:@project.version@ #可以不配置，默认为ip:port。@引用maven里的属性
+    lease-renewal-interval-in-seconds: 5 # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10 # 发呆时间，即服务续约到期时间（缺省为90s）
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+zuul:
+  ignored-services: sky-client,sky-server # 关闭默认路由配置
+  sensitive-headers: Cookie,Set-Cookie,Authorization # 敏感请求头，不会传递给网关下游应用。该字段有默认值。
+  add-host-header: true # 设置为true重定向时会添加host请求头到下游应用
+  prefix: /sky-zuul # 给网关路由添加前缀。访问网关时，url需要加上这个前缀
+  retryable: true # 关闭重试机制
+  routes: # 给服务配置路由。不配置时，默认以spring.application.name名作为path，如"/sky-client/**"
+    sky-client: # 对应远程服务的spring.application.name属性值
+      path: /skyClient/**
+    sky-server: # 对应远程服务的spring.application.name属性值
+      path: /skyServer/**
+  PreLogFilter: # 写上过滤器类名。是否禁用"PreLogFilter"过滤器
+    pre:
+      disable: false
+hystrix:
+  command: # 用于控制HystrixCommand的行为
+    default: # 默认行为。还可以设置某个具体服务的配置
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000 # 配置HystrixCommand执行的超时时间，执行超过该时间会进行服务降级处理
+    sky-client: # sky-client hystrix个性化配置
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+ribbon: # 全局配置。ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1)
+  ConnectTimeout: 1000 # 连接超时，单位毫秒，默认1000
+  ReadTimeout: 1000 # 访问超时，单位毫秒，默认1000
+  MaxAutoRetries: 0 # 最大重试次数，默认0
+  MaxAutoRetriesNextServer: 1 # 最大重试服务个数，默认1
+sky-client: # sky-client ribbon个性化配置
+  ribbon:
+    ConnectTimeout: 500
+    ReadTimeout: 2000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'routes' # 开启查看路由的端点。http://localhost:8001/actuator/routes、http://localhost:8001/actuator/routes/details
+
+
