@@ -72,6 +72,8 @@
         <druid.version>1.1.17</druid.version>
         <jwt.version>0.9.1</jwt.version>
         <commons.version>2.6</commons.version>
+        <commons-beanutils>1.9.4</commons-beanutils>
+        <springfox-swagger2>2.8.0</springfox-swagger2>
         <aliyun-java-sdk-core.version>3.2.3</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-dysmsapi.version>1.0.0</aliyun-java-sdk-dysmsapi.version>
         <aliyun.oss.version>3.6.0</aliyun.oss.version>
@@ -127,10 +129,22 @@
             <optional>false</optional><!--是否依赖传递。建议为true（不要依赖传递）-->
         </dependency>
 
+        <!--springfox-swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger2}</version>
+        </dependency>
+        <!--beanutils工具类-->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
+            <version>${commons-beanutils}</version>
         </dependency>
 
         <!--集成springmvc框架并实现自动配置 -->

@@ -1,5 +1,8 @@
 package com.sky.springcloud.client.domain;
 
+import io.swagger.annotations.ApiModel;
+
+@ApiModel("用户实体类")
 public class User {
 
     private Long id;
