@@ -23,6 +23,12 @@ public class RegisterBeanInit implements BeanDefinitionRegistryPostProcessor, Ap
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * 手动实例化bean，设置bean的依赖，再将这个bean实例注入到应用上下文里。
+     * 针对同一个class，可以实例化多个bean，bean name不一致即可。
+     * @param registry
+     * @throws BeansException
+     */
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         BeanDefinitionBuilder builder;

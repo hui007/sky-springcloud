@@ -11,6 +11,10 @@
 
     <artifactId>sky-client</artifactId>
 
+    <properties>
+        <netty.version>4.1.39.Final</netty.version>
+    </properties>
+
     <dependencies>
         <!-- eureka引入客户端 -->
         <dependency>
@@ -31,6 +35,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <!--netty-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
         </dependency>
     </dependencies>
 </project>
