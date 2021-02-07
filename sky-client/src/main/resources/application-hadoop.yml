@@ -1,0 +1,8 @@
+# 为了这个yml生效，需要将"hadoop"profile激活
+
+hadoop:
+  hdfs:
+    default-fs: hdfs://193.112.47.33:8020
+    user: joshui
+
+

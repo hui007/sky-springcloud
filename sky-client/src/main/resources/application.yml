@@ -25,3 +25,4 @@ service-in-eureka: #自定义的key，为了引用注册到eureka里的远程服
 sky-server: #注册到eureka里的远程服务名。对应远程服务的spring.application.name属性值
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule # 指定策略。feign默认的是轮询的策略，这里的配置可以自定义
+
