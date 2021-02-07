@@ -120,7 +120,7 @@ public class UserHystrixService {
     @HystrixCollapser(batchMethod = "getUserByIds",collapserProperties = {
             @HystrixProperty(name = "timerDelayInMilliseconds", value = "100")
     })
-    public Future<User> getUserFuture(Long id) {
+    public Future<User> getUserFuture(final Long id) {
         return new AsyncResult<User>(){
             @Override
             public User invoke() {
