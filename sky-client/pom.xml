@@ -12,7 +12,7 @@
     <artifactId>sky-client</artifactId>
 
     <properties>
-        <netty.version>4.1.39.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
         <hadoop.version>2.7.7</hadoop.version>
     </properties>
 
