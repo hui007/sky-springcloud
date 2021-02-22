@@ -1,6 +1,7 @@
 package com.sky.springcloud.client.service.inf;
 
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
@@ -23,9 +24,11 @@ public interface MapReduceService {
 	 * @param reducerClass
 	 * @param outputKeyClass
 	 * @param outputValueClass
+	 * @param partitionerClass
+	 * @param reduceTaskNum
 	 * @param outputFile
 	 */
 	public void runMapReduce(String jobName, String inputFile, Class<? extends Mapper> mapperClass, Class<?> mapOutputKeyClass,
 							 Class<?> mapOutputValueClass, Class<? extends Reducer> reducerClass, Class<?> outputKeyClass,
-							 Class<?> outputValueClass, String outputFile) throws IOException, ClassNotFoundException, InterruptedException;
+							 Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile) throws IOException, ClassNotFoundException, InterruptedException;
 }

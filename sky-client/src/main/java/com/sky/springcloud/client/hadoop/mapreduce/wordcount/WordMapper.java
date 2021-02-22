@@ -1,4 +1,4 @@
-package com.sky.springcloud.client.hadoop.mapreduce;
+package com.sky.springcloud.client.hadoop.mapreduce.wordcount;
 
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;

@@ -6,13 +6,19 @@
 package com.sky.springcloud.client.hadoop;
 
 import com.sky.springcloud.client.config.HadoopHDFSConfig;
-import com.sky.springcloud.client.hadoop.mapreduce.WordMapper;
-import com.sky.springcloud.client.hadoop.mapreduce.WordReducer;
+import com.sky.springcloud.client.hadoop.mapreduce.partitioner.WordPartitioner;
+import com.sky.springcloud.client.hadoop.mapreduce.sort.SortBean;
+import com.sky.springcloud.client.hadoop.mapreduce.sort.SortMapper;
+import com.sky.springcloud.client.hadoop.mapreduce.sort.SortReducer;
+import com.sky.springcloud.client.hadoop.mapreduce.wordcount.WordMapper;
+import com.sky.springcloud.client.hadoop.mapreduce.wordcount.WordReducer;
 import com.sky.springcloud.client.service.inf.HDFSService;
 import com.sky.springcloud.client.service.inf.MapReduceService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +45,18 @@ public class HadoopTest {
     private HadoopHDFSConfig hadoopHDFSConfig;
 
     /**
+     * 所有测试方法执行之前执行该方法
+     */
+    @Before
+    public void before() {
+        /*
+            解决"org.apache.hadoop.security.AccessControlException: Permission denied: user "问题。默认取的本机操作系统的登录用户。
+            也可通过"FileSystem fileSystem = FileSystem.get(URI.create("hdfs://hadoop01:9000/") ,conf, hadoopHDFSConfig.getHdfsUser());"解决
+         */
+        System.setProperty("HADOOP_USER_NAME", hadoopHDFSConfig.getHdfsUser());
+    }
+
+    /**
      * 测试本地多个小文件合并成一个大文件后，上传到远程hdfs文件系统
      */
     @Test
@@ -59,18 +77,32 @@ public class HadoopTest {
     }
 
     /**
-     * 使用MapReduce计算文本内每个单词的出现次数
+     * MapReduced：使用MapReduce计算文本内每个单词的出现次数
      */
     @Test
     public void testMapReduceWordCount() throws InterruptedException, IOException, ClassNotFoundException {
-        /*
-            解决"org.apache.hadoop.security.AccessControlException: Permission denied: user "问题。默认取的本机操作系统的登录用户。
-            也可通过"FileSystem fileSystem = FileSystem.get(URI.create("hdfs://hadoop01:9000/") ,conf, hadoopHDFSConfig.getHdfsUser());"解决
-         */
-        System.setProperty("HADOOP_USER_NAME", hadoopHDFSConfig.getHdfsUser());
-
         // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCount", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
-                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, "file:///Users/jianghui/Downloads/wordCount");
+                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCount");
+    }
+
+    /**
+     * MapReduced：分区。有几个分区，就有几个结果文件
+     */
+    @Test
+    public void testMapReducePartitioner() throws InterruptedException, IOException, ClassNotFoundException {
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        mapReduceService.runMapReduce("wordCountPartitioner", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
+                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, WordPartitioner.class, 2,"file:///Users/jianghui/Downloads/wordCount");
+    }
+
+    /**
+     * MapReduced：排序。每个结果文件里的key按字母顺序排列。
+     */
+    @Test
+    public void testMapReduceSort() throws InterruptedException, IOException, ClassNotFoundException {
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        mapReduceService.runMapReduce("wordCountSort", "file:///Users/jianghui/Downloads/temp/jh.txt", SortMapper.class,
+                SortBean.class, NullWritable.class, SortReducer.class, SortBean.class, NullWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCount");
     }
 }
