@@ -2,6 +2,7 @@ package com.sky.springcloud.client.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @Configuration
-//@Profile(value = {"dev"}) 最好只在开发环境使用，在线上环境停用
+@Profile(value = {"dev"}) // 最好只在开发环境使用，在线上环境停用
 public class SwaggerConfig {
 
     @Bean
