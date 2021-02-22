@@ -1,16 +1,19 @@
 package com.sky.springcloud.client.controller;
 
+import com.sky.springcloud.client.config.HadoopHDFSConfig;
 import com.sky.springcloud.client.service.inf.HDFSService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
  
 @Controller
 @RequestMapping("/api/hadoop/hdfs")
 @Api(value = "HDFS Controlle", tags = "HDFS 操作服务")
+@ConditionalOnBean(HadoopHDFSConfig.class)
 public class HDFSController {
 	// 日志记录
 	private static final Logger logger = LoggerFactory.getLogger(HDFSController.class);	

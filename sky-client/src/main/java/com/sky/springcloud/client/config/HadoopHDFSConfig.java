@@ -104,5 +104,11 @@ public class HadoopHDFSConfig {
 		System.out.println("fileSystem:"+fileSystem);
 	}
 
+	public String getHdfsUser() {
+		return hdfsUser;
+	}
 
+	public String getHdfsDefaultFS() {
+		return hdfsDefaultFS;
+	}
 }
