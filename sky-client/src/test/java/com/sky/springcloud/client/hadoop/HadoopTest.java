@@ -6,6 +6,10 @@
 package com.sky.springcloud.client.hadoop;
 
 import com.sky.springcloud.client.config.HadoopHDFSConfig;
+import com.sky.springcloud.client.hadoop.mapreduce.combiner.MyCombiner;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.sum.FlowBean;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.sum.FlowCountMapper;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.sum.FlowCountReducer;
 import com.sky.springcloud.client.hadoop.mapreduce.partitioner.WordPartitioner;
 import com.sky.springcloud.client.hadoop.mapreduce.sort.SortBean;
 import com.sky.springcloud.client.hadoop.mapreduce.sort.SortMapper;
@@ -83,7 +87,7 @@ public class HadoopTest {
     public void testMapReduceWordCount() throws InterruptedException, IOException, ClassNotFoundException {
         // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCount", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
-                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCount");
+                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCount", null);
     }
 
     /**
@@ -93,7 +97,7 @@ public class HadoopTest {
     public void testMapReducePartitioner() throws InterruptedException, IOException, ClassNotFoundException {
         // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCountPartitioner", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
-                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, WordPartitioner.class, 2,"file:///Users/jianghui/Downloads/wordCount");
+                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, WordPartitioner.class, 2,"file:///Users/jianghui/Downloads/wordCountPartitioner", null);
     }
 
     /**
@@ -103,6 +107,28 @@ public class HadoopTest {
     public void testMapReduceSort() throws InterruptedException, IOException, ClassNotFoundException {
         // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCountSort", "file:///Users/jianghui/Downloads/temp/jh.txt", SortMapper.class,
-                SortBean.class, NullWritable.class, SortReducer.class, SortBean.class, NullWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCount");
+                SortBean.class, NullWritable.class, SortReducer.class, SortBean.class, NullWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCountSort", null);
+    }
+
+    /**
+     * MapReduced：局部合并。在mapper的输出发送给reducer之前，做一个局部合并，将相同key的输出项合并之后传给reducer。
+     */
+    @Test
+    public void testMapReduceCombiner() throws InterruptedException, IOException, ClassNotFoundException {
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        mapReduceService.runMapReduce("wordCountCombiner", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
+                Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCountCombiner", MyCombiner.class);
+    }
+
+    /**
+     * MapReduced：实战。计算手机流量总和。
+     */
+    @Test
+    public void testMapReduceFlowSum() throws InterruptedException, IOException, ClassNotFoundException {
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        mapReduceService.runMapReduce("flowSum", "file:///Users/jianghui/Downloads/temp/nx/正式课程资料_05-分布式计算模型Mapreduce实践与原理剖析（二）_05课后资料_测试数据_input_flow.log",
+                FlowCountMapper.class,
+                Text.class, FlowBean.class, FlowCountReducer.class, Text.class, FlowBean.class, null, 0,
+                "file:///Users/jianghui/Downloads/flowSum", null);
     }
 }

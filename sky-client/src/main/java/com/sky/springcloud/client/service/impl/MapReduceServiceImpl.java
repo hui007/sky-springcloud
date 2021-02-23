@@ -37,7 +37,7 @@ public class MapReduceServiceImpl implements MapReduceService {
     @Override
     public void runMapReduce(String jobName, String inputFile, Class<? extends Mapper> mapperClass,
                              Class<?> mapOutputKeyClass, Class<?> mapOutputValueClass, Class<? extends Reducer> reducerClass,
-                             Class<?> outputKeyClass, Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile) throws IOException, ClassNotFoundException, InterruptedException {
+                             Class<?> outputKeyClass, Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile, Class<? extends Reducer> combinerClass) throws IOException, ClassNotFoundException, InterruptedException {
         // 定义变量
         Class<TextInputFormat> inputFormatClass = TextInputFormat.class;
         Class<TextOutputFormat> outputFormatClass = TextOutputFormat.class;
@@ -61,6 +61,11 @@ public class MapReduceServiceImpl implements MapReduceService {
         //3、设置分区
         if (partitionerClass != null) {
             job.setPartitionerClass(partitionerClass);
+        }
+        //4、排序。体现在自定义key实现类上。see SortBean
+        //5、局部合并 Combiner
+        if (combinerClass != null) {
+            job.setCombinerClass(combinerClass);
         }
 
         //7、设置Reducer类型，并设置k3 v3

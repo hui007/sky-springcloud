@@ -27,8 +27,9 @@ public interface MapReduceService {
 	 * @param partitionerClass
 	 * @param reduceTaskNum
 	 * @param outputFile
+	 * @param combinerClass
 	 */
 	public void runMapReduce(String jobName, String inputFile, Class<? extends Mapper> mapperClass, Class<?> mapOutputKeyClass,
 							 Class<?> mapOutputValueClass, Class<? extends Reducer> reducerClass, Class<?> outputKeyClass,
-							 Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile) throws IOException, ClassNotFoundException, InterruptedException;
+							 Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile, Class<? extends Reducer> combinerClass) throws IOException, ClassNotFoundException, InterruptedException;
 }
