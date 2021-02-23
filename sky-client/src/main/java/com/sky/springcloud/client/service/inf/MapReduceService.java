@@ -1,5 +1,6 @@
 package com.sky.springcloud.client.service.inf;
 
+import org.apache.hadoop.io.WritableComparator;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -28,8 +29,9 @@ public interface MapReduceService {
 	 * @param reduceTaskNum
 	 * @param outputFile
 	 * @param combinerClass
+	 * @param groupClass
 	 */
 	public void runMapReduce(String jobName, String inputFile, Class<? extends Mapper> mapperClass, Class<?> mapOutputKeyClass,
 							 Class<?> mapOutputValueClass, Class<? extends Reducer> reducerClass, Class<?> outputKeyClass,
-							 Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile, Class<? extends Reducer> combinerClass) throws IOException, ClassNotFoundException, InterruptedException;
+							 Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile, Class<? extends Reducer> combinerClass, Class<? extends WritableComparator> groupClass) throws IOException, ClassNotFoundException, InterruptedException;
 }

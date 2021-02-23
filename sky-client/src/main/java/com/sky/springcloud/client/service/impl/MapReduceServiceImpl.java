@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.WritableComparator;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Partitioner;
@@ -34,10 +35,31 @@ public class MapReduceServiceImpl implements MapReduceService {
     @Autowired
     private Configuration configuration;
 
+    /**
+     *
+     * @param jobName
+     * @param inputFile
+     * @param mapperClass
+     * @param mapOutputKeyClass
+     * @param mapOutputValueClass
+     * @param reducerClass
+     * @param outputKeyClass
+     * @param outputValueClass
+     * @param partitionerClass
+     * @param reduceTaskNum 如果为0，将不启动reduce task进程，会将mapper进程的输出输出到最终的结果文件里
+     * @param outputFile
+     * @param combinerClass
+     * @param groupClass
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws InterruptedException
+     */
     @Override
     public void runMapReduce(String jobName, String inputFile, Class<? extends Mapper> mapperClass,
                              Class<?> mapOutputKeyClass, Class<?> mapOutputValueClass, Class<? extends Reducer> reducerClass,
-                             Class<?> outputKeyClass, Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass, Integer reduceTaskNum, String outputFile, Class<? extends Reducer> combinerClass) throws IOException, ClassNotFoundException, InterruptedException {
+                             Class<?> outputKeyClass, Class<?> outputValueClass, Class<? extends Partitioner> partitionerClass,
+                             Integer reduceTaskNum, String outputFile, Class<? extends Reducer> combinerClass,
+                             Class<? extends WritableComparator> groupClass) throws IOException, ClassNotFoundException, InterruptedException {
         // 定义变量
         Class<TextInputFormat> inputFormatClass = TextInputFormat.class;
         Class<TextOutputFormat> outputFormatClass = TextOutputFormat.class;
@@ -66,6 +88,10 @@ public class MapReduceServiceImpl implements MapReduceService {
         //5、局部合并 Combiner
         if (combinerClass != null) {
             job.setCombinerClass(combinerClass);
+        }
+        //6、分组设置
+        if (groupClass != null) {
+            job.setGroupingComparatorClass(groupClass);
         }
 
         //7、设置Reducer类型，并设置k3 v3
