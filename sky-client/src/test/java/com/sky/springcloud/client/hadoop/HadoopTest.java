@@ -7,6 +7,10 @@ package com.sky.springcloud.client.hadoop;
 
 import com.sky.springcloud.client.config.HadoopHDFSConfig;
 import com.sky.springcloud.client.hadoop.mapreduce.combiner.MyCombiner;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.partitioner.FlowPartitioner;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.sort.FlowSortBean;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.sort.FlowSortMapper;
+import com.sky.springcloud.client.hadoop.mapreduce.flow.sort.FlowSortReducer;
 import com.sky.springcloud.client.hadoop.mapreduce.flow.sum.FlowBean;
 import com.sky.springcloud.client.hadoop.mapreduce.flow.sum.FlowCountMapper;
 import com.sky.springcloud.client.hadoop.mapreduce.flow.sum.FlowCountReducer;
@@ -122,6 +126,20 @@ public class HadoopTest {
     }
 
     /**
+     * MapReduced：分组。求top n
+     */
+    @Test
+    public void testMapReduceGroup() throws InterruptedException, IOException, ClassNotFoundException {
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        mapReduceService.runMapReduce("group",
+                "file:///Users/jianghui/Downloads/temp/nx/order.txt",
+                OrderMapper.class, OrderBean.class, Text.class,
+                OrderReducer.class, OrderBean.class, NullWritable.class,
+                OrderPartition.class, 1,
+                "file:///Users/jianghui/Downloads/group", null, OrderGroup.class);
+    }
+
+    /**
      * MapReduced：实战。计算手机流量总和。
      */
     @Test
@@ -134,16 +152,26 @@ public class HadoopTest {
     }
 
     /**
-     * MapReduced：分组。
+     * MapReduced：实战。在testMapReduceFlowSum计算结果文件基础上，按照upFLow流量倒排。
      */
     @Test
-    public void testMapReduceGroup() throws InterruptedException, IOException, ClassNotFoundException {
+    public void testMapReduceFlowSort() throws InterruptedException, IOException, ClassNotFoundException {
         // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
-        mapReduceService.runMapReduce("group",
-                "file:///Users/jianghui/Downloads/temp/nx/order.txt",
-                OrderMapper.class, OrderBean.class, Text.class,
-                OrderReducer.class, OrderBean.class, NullWritable.class,
-                OrderPartition.class, 1,
-                "file:///Users/jianghui/Downloads/group", null, OrderGroup.class);
+        mapReduceService.runMapReduce("flowSort", "file:///Users/jianghui/Downloads/temp/nx/flowsum.log",
+                FlowSortMapper.class,
+                FlowSortBean.class, Text.class, FlowSortReducer.class, Text.class, FlowSortBean.class, null, 0,
+                "file:///Users/jianghui/Downloads/flowSort", null, null);
+    }
+
+    /**
+     * MapReduced：实战。按照手机号分区求和。136的在一个结果文件中，135的在一个结果文件中，其他的手机号类似。
+     */
+    @Test
+    public void testMapReduceFlowPartitioner() throws InterruptedException, IOException, ClassNotFoundException {
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        mapReduceService.runMapReduce("flowPartitioner", "file:///Users/jianghui/Downloads/temp/nx/正式课程资料_05-分布式计算模型Mapreduce实践与原理剖析（二）_05课后资料_测试数据_input_flow.log",
+                FlowCountMapper.class,
+                Text.class, FlowBean.class, FlowCountReducer.class, Text.class, FlowBean.class, FlowPartitioner.class, 4,
+                "file:///Users/jianghui/Downloads/flowPartitioner", null, null);
     }
 }
