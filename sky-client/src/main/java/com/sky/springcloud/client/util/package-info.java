@@ -29,6 +29,16 @@ class ThreadUtilDesc{
     }
 }
 
+class TimeUtilDesc{
+    /**
+     * 日期操作大全：https://mp.weixin.qq.com/s/Y5GPjsezLNWzvz7Ke1x4Ew <br>
+     * 线程休眠：{@link TimeUtil}<br>
+     */
+    public void desc(){
+        System.out.println("noThing");
+    }
+}
+
 class CollectionsUtilDesc{
     /**
      * 集合转字符串：{@link UserHystrixService#getUserByIds(java.util.List)}<br>

@@ -16,48 +16,23 @@
     <packaging>pom</packaging>
 
     <name>sky-springcloud</name>
-    <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
+    <!--springboot、springcloud、springcloud Alibaba的版本依赖关系可参考：
+        https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E-->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.7.RELEASE</version>
+        <version>2.1.13.RELEASE</version>
         <relativePath/>
     </parent>
 
     <!--mvn deploy 部署时用到的仓库-->
     <distributionManagement>
-        <!--<repository>
-          <id>jeecg</id>
-          <name>jeecg Repository</name>
-          <url>http://maven.jeecg.com:8090/nexus/content/repositories/jeecg</url>
-        </repository>-->
-        <!--<snapshotRepository>
-          <id>jeecg-snapshots</id>
-          <name>jeecg Snapshot Repository</name>
-          <url>http://maven.jeecg.com:8090/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>-->
     </distributionManagement>
 
     <!--下载构件时，用到的仓库-->
     <repositories>
-        <!--<repository>
-            <id>aliyun</id>
-            <name>aliyun Repository</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>-->
-        <!--<repository>
-          <id>jeecg</id>
-          <name>jeecg Repository</name>
-          <url>http://maven.jeecg.org/nexus/content/repositories/jeecg</url>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </repository>-->
     </repositories>
 
     <properties>
@@ -77,7 +52,11 @@
         <aliyun-java-sdk-core.version>3.2.3</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-dysmsapi.version>1.0.0</aliyun-java-sdk-dysmsapi.version>
         <aliyun.oss.version>3.6.0</aliyun.oss.version>
-        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+
+        <spring-cloud.version>Greenwich.SR6</spring-cloud.version>
+        <spring.cloud.alibaba>2.1.4.RELEASE</spring.cloud.alibaba>
+        <sentinel.version>1.8.2</sentinel.version>
+        <sentinel.transport.version>1.8.2</sentinel.transport.version>
     </properties>
 
     <!--先申明，统一version版本，供子模块使用-->
@@ -96,6 +75,31 @@
                 <!--<artifactId>qiniu-java-sdk</artifactId>-->
                 <!--<version>7.2.23</version>-->
             <!--</dependency>-->
+            <!-- sentinel -->
+            <!--<dependency>-->
+                <!--<groupId>com.alibaba.csp</groupId>-->
+                <!--<artifactId>sentinel-core</artifactId>-->
+                <!--<version>${sentinel.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.alibaba.csp</groupId>-->
+                <!--<artifactId>sentinel-annotation-aspectj</artifactId> &lt;!&ndash;使用sentinel注解时需要引入这个依赖&ndash;&gt;-->
+                <!--<version>${sentinel.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>com.alibaba.csp</groupId>-->
+                <!--<artifactId>sentinel-transport-simple-http</artifactId>-->
+                <!--<version>${sentinel.transport.version}</version>-->
+            <!--</dependency>-->
+
+            <!--引入spring-cloud-alibaba-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -146,193 +150,6 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${commons-beanutils}</version>
         </dependency>
-
-        <!--集成springmvc框架并实现自动配置 -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-mail</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-test</artifactId>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-aop</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; <dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-devtools</artifactId>-->
-            <!--<optional>true</optional>-->
-        <!--</dependency> &ndash;&gt;-->
-
-        <!--&lt;!&ndash; commons &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>commons-io</groupId>-->
-            <!--<artifactId>commons-io</artifactId>-->
-            <!--<version>${commons.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>commons-lang</groupId>-->
-            <!--<artifactId>commons-lang</artifactId>-->
-            <!--<version>${commons.version}</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; freemarker &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-freemarker</artifactId>-->
-        <!--</dependency>-->
-
-        <!-- mybatis-plus -->
-        <!--<dependency>-->
-            <!--<groupId>com.baomidou</groupId>-->
-            <!--<artifactId>mybatis-plus-boot-starter</artifactId>-->
-            <!--<version>${mybatis-plus.version}</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; druid &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba</groupId>-->
-            <!--<artifactId>druid-spring-boot-starter</artifactId>-->
-            <!--<version>${druid.version}</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; 动态数据源 &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.baomidou</groupId>-->
-            <!--<artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
-            <!--<version>2.5.4</version>-->
-        <!--</dependency>-->
-
-        <!-- json -->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba</groupId>-->
-            <!--<artifactId>fastjson</artifactId>-->
-            <!--<version>1.2.60</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;mysql&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>mysql</groupId>-->
-            <!--<artifactId>mysql-connector-java</artifactId>-->
-            <!--<version>5.1.47</version>-->
-            <!--<scope>runtime</scope>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; Quartz定时任务 &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-quartz</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;JWT&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.auth0</groupId>-->
-            <!--<artifactId>java-jwt</artifactId>-->
-            <!--<version>3.7.0</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;shiro&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shiro</groupId>-->
-            <!--<artifactId>shiro-spring-boot-starter</artifactId>-->
-            <!--<version>1.4.0</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; shiro-redis &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.crazycake</groupId>-->
-            <!--<artifactId>shiro-redis</artifactId>-->
-            <!--<version>3.1.0</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>org.apache.shiro</groupId>-->
-                    <!--<artifactId>shiro-core</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-
-        <!-- Swagger API文档 -->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger2</artifactId>-->
-            <!--<version>2.9.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-swagger-ui</artifactId>-->
-            <!--<version>2.9.2</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.github.xiaoymin</groupId>-->
-            <!--<artifactId>swagger-bootstrap-ui</artifactId>-->
-            <!--<version>1.9.3</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.springfox</groupId>-->
-            <!--<artifactId>springfox-bean-validators</artifactId>-->
-            <!--<version>2.9.2</version>-->
-        <!--</dependency>-->
-        <!--&lt;!&ndash; # 增加两个配置解决 NumberFormatException &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>io.swagger</groupId>-->
-            <!--<artifactId>swagger-annotations</artifactId>-->
-            <!--<version>1.5.22</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.swagger</groupId>-->
-            <!--<artifactId>swagger-models</artifactId>-->
-            <!--<version>1.5.22</version>-->
-        <!--</dependency>-->
-
-
-        <!--&lt;!&ndash; Redis &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.commons</groupId>-->
-            <!--<artifactId>commons-pool2</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; 阿里云短信 &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.aliyun</groupId>-->
-            <!--<artifactId>aliyun-java-sdk-dysmsapi</artifactId>-->
-            <!--<version>${aliyun-java-sdk-dysmsapi.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.aliyun</groupId>-->
-            <!--<artifactId>aliyun-java-sdk-core</artifactId>-->
-            <!--<version>${aliyun-java-sdk-core.version}</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash;HttpClient&ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpclient</artifactId>-->
-            <!--<version>4.5.3</version>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; websocket &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-websocket</artifactId>-->
-        <!--</dependency>-->
-
-        <!--&lt;!&ndash; aliyun oss &ndash;&gt;-->
-        <!--<dependency>-->
-            <!--<groupId>com.aliyun.oss</groupId>-->
-            <!--<artifactId>aliyun-sdk-oss</artifactId>-->
-            <!--<version>${aliyun.oss.version}</version>-->
-        <!--</dependency>-->
-
     </dependencies>
 
     <build>
@@ -425,10 +242,6 @@
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.7.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

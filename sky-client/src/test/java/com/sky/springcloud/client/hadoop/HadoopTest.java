@@ -90,7 +90,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceWordCount() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCount", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
                 Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCount", null, null);
     }
@@ -100,7 +100,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReducePartitioner() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCountPartitioner", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
                 Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, WordPartitioner.class, 2,"file:///Users/jianghui/Downloads/wordCountPartitioner", null, null);
     }
@@ -110,7 +110,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceSort() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCountSort", "file:///Users/jianghui/Downloads/temp/jh.txt", SortMapper.class,
                 SortBean.class, NullWritable.class, SortReducer.class, SortBean.class, NullWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCountSort", null, null);
     }
@@ -120,7 +120,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceCombiner() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("wordCountCombiner", "file:///Users/jianghui/Downloads/temp/jh.txt", WordMapper.class,
                 Text.class, LongWritable.class, WordReducer.class, Text.class, LongWritable.class, null, 0,"file:///Users/jianghui/Downloads/wordCountCombiner", MyCombiner.class, null);
     }
@@ -130,7 +130,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceGroup() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("group",
                 "file:///Users/jianghui/Downloads/temp/nx/order.txt",
                 OrderMapper.class, OrderBean.class, Text.class,
@@ -144,7 +144,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceFlowSum() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("flowSum", "file:///Users/jianghui/Downloads/temp/nx/正式课程资料_05-分布式计算模型Mapreduce实践与原理剖析（二）_05课后资料_测试数据_input_flow.log",
                 FlowCountMapper.class,
                 Text.class, FlowBean.class, FlowCountReducer.class, Text.class, FlowBean.class, null, 0,
@@ -156,7 +156,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceFlowSort() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("flowSort", "file:///Users/jianghui/Downloads/temp/nx/flowsum.log",
                 FlowSortMapper.class,
                 FlowSortBean.class, Text.class, FlowSortReducer.class, Text.class, FlowSortBean.class, null, 0,
@@ -168,7 +168,7 @@ public class HadoopTest {
      */
     @Test
     public void testMapReduceFlowPartitioner() throws InterruptedException, IOException, ClassNotFoundException {
-        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://193.112.47.33:8020/x/y/z.txt
+        // 如果要计算本地文件、计算结果要下发到本地，inputFile和outputFile的url需要带file://前缀。如果是远程文件，格式类似hdfs://taieout:8020/x/y/z.txt
         mapReduceService.runMapReduce("flowPartitioner", "file:///Users/jianghui/Downloads/temp/nx/正式课程资料_05-分布式计算模型Mapreduce实践与原理剖析（二）_05课后资料_测试数据_input_flow.log",
                 FlowCountMapper.class,
                 Text.class, FlowBean.class, FlowCountReducer.class, Text.class, FlowBean.class, FlowPartitioner.class, 4,

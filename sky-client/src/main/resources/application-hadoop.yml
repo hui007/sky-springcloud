@@ -2,7 +2,7 @@
 
 hadoop:
   hdfs:
-    default-fs: hdfs://193.112.47.33:8020
+    default-fs: hdfs://taieout:8020
     user: joshui
 
 
